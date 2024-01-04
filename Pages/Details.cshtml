@@ -1,0 +1,58 @@
+﻿@page
+@model Concessionaria.Pages.DetailsModel
+
+
+<h2 class="my-3">@Model.Carro.Modelo</h2>
+
+<div class="row">
+
+    <div class="col-4">
+        <img class="img-fluid rounded" src="@Model.Carro.ImageUri">
+    </div>
+    <div class="col-6">
+        <h4 class="my-3">Sobre:</h4>
+        @* <p>@Model.Carro.Marca</p> *@
+        <h4 class="my-3">Mais Info:</h4>
+        <ul>
+            <li>
+                <label asp-for="Carro.Preco"></label>
+                : @Html.DisplayFor(model => model.Carro.Preco)
+            </li>
+            <li>
+                <label asp-for="Carro.Disponivel"></label>
+                : @Model.Carro.DisponivelFormatado
+            </li>
+            <li>
+                <label asp-for="Carro.Ano"></label>
+                : @Html.DisplayFor(model => model.Carro.Ano)
+            </li>
+
+            @if (Model.DescricaoMarca is not null)
+            {
+                <li>
+                    <label asp-for="Carro.MarcaId"></label>
+                    : @Html.DisplayFor(model => model.DescricaoMarca)
+                </li>
+            }
+
+            @if (Model.Carro.Opcionais.Any())
+            {
+                <li>
+                    <label asp-for="Carro.Opcionais"></label>
+                    : @string.Join(", ", Model.Carro.Opcionais.Select(item => item.Descricao))
+                </li>
+            }
+           
+        </ul>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn my-3 btn-primary"
+               asp-page="/Edit"
+               asp-route-id="@Model.Carro.Id">Editar</a>
+        }
+
+        
+    </div>
+
+</div>
+

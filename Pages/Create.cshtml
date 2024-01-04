@@ -1,0 +1,84 @@
+﻿@page
+@model Concessionaria.Pages.CreateModel
+
+<div class="row pt-5">
+
+    <div class="col-md-4">
+
+        <form method="post">
+
+            <h4>Inclusão de Carro</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mt-3 mb-3">
+                <label asp-for="Carro.MarcaId" class="control-label"></label>
+                <select class="form-select" asp-for="Carro.MarcaId"
+                        asp-items="Model.MarcaOptionItems">
+                    <option value="">Selecione uma opção</option>
+                </select>
+                <span asp-validation-for="Carro.MarcaId" class="text-danger">
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Carro.Modelo" class="control-label"></label>
+                <input asp-for="Carro.Modelo" class="form-control" />
+                <span asp-validation-for="Carro.Modelo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3 mb-3">
+                <label asp-for="Carro.Opcionais" class="control-label"></label>
+
+                <select class="form-select" asp-for="OpcionalIds"
+                        asp-items="Model.OpcionalOptionItems">
+                </select>
+                <span asp-validation-for="Carro.Opcionais" class="text-danger">
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Carro.ImageUri" class="control-label"></label>
+                <input asp-for="Carro.ImageUri" class="form-control" />
+                <span asp-validation-for="Carro.ImageUri" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Carro.Preco" class="control-label"></label>
+                <input asp-for="Carro.Preco" class="form-control" />
+                <span asp-validation-for="Carro.Preco" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3 mb-3">
+                <input class="form-check-input" asp-for="Carro.Disponivel" />
+                <label asp-for="Carro.Disponivel"></label>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Carro.Ano" class="control-label"></label>
+                <select asp-for="Carro.Ano" class="form-control">
+                    <option value="">Selecione o ano</option>
+                    @for (int year = DateTime.Now.Year; year >= DateTime.Now.Year - 100; year--)
+                    {
+                        <option value="@year-01-01">@year</option>
+                    }
+                </select>
+                <span asp-validation-for="Carro.Ano" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mt-4">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@* Para validar no lado do cliente *@
+@section Scripts {
+
+                    await @Html.RenderPartialAsync("_ValidationScriptsPartial")
+
+}
